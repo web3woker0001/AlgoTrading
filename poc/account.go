@@ -34,33 +34,33 @@ var getAccount = &cli.Command{
 			Usage: "apiKey",
 		},
 		&cli.StringFlag{
-			Name: "secretKey",
+			Name:  "secretKey",
 			Value: "",
 			Usage: "secretKey",
 		},
-	}
+	},
 	Action: func(c *cli.Context) error {
 
-
-		if c.Is("apiKey") == "" {
+		if c.String("apiKey") == "" {
 			fmt.Println("apiKey is required")
 			return nil
 		}
 
-		if c.Is("secretKey") == "" {
+		if c.String("secretKey") == "" {
 			fmt.Println("secretKey is required")
 			return nil
 		}
 
-		client := binance.NewFuturesClient(c.String("apiKey"), c.string("secretKey"))
+		client := binance.NewFuturesClient(c.String("apiKey"), c.String("secretKey"))
 
 		// 示例：获取账户信息
 		account, err := client.NewGetAccountService().Do(context.Background())
 		if err != nil {
 			fmt.Println(err)
-			return
+			return err
 		}
 		fmt.Printf("Account Information: %+v\n", account)
+
 		return nil
 	},
 }
