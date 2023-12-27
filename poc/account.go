@@ -61,6 +61,37 @@ var getAccount = &cli.Command{
 		}
 		fmt.Printf("Account Information: %+v\n", account)
 
+		balance, err := client.NewGetBalanceService().Do(context.Background())
+		if err != nil {
+			fmt.Println(err)
+			return err
+		}
+		fmt.Printf("balance Information: %+v\n", balance)
+
+		for _, v := range balance {
+			fmt.Printf("balance: %+v\n", v)
+		}
+
+		// 查询所有订单
+		orders, err := client.NewListOrdersService().Symbol("ORDIUSDT").Do(context.Background())
+		for i := 0; i < len(orders); i++ {
+			fmt.Printf("orders: %+v\n", orders[i])
+		}
+		// 挂单
+		// order, err := client.NewCreateOrderService().TimeInForce("GTC").Quantity("0.5").Type("LIMIT").Side("BUY").Price("60").Symbol("ORDIUSDT").Do(context.Background())
+		// if err != nil {
+		// 	fmt.Println(err)
+		// 	return err
+		// }
+		// print(order.OrderID)
+
+		// // 撤单
+		// cancelorder, err := client.NewCancelOrderService().Symbol("ORDIUSDT").OrderID(order.OrderID).Do(context.Background())
+		// if err != nil {
+		// 	fmt.Println(err)
+		// 	return err
+		// }
+		// print(cancelorder)
 		return nil
 	},
 }
