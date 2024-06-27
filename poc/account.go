@@ -25,8 +25,8 @@ func main() {
 }
 
 var getAccount = &cli.Command{
-	Name:  "getAccount",
-	Usage: "getAccount",
+	Name:  "getAccountInfo",
+	Usage: "getAccountInfo",
 	Flags: []cli.Flag{
 		&cli.StringFlag{
 			Name:  "apiKey",
